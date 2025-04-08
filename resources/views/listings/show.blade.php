@@ -23,16 +23,18 @@
             <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
         </div>
         <div class="border border-gray-200 w-full mb-6"></div>
-        <div>
+        <div class="space-y-6">
             <h3 class="text-3xl font-bold mb-4">
                 Job Description
             </h3>
-            <div class="text-lg space-y-6">
-                <p>{{$listing->description}}</p>
+            <div class="max-w-2xl text-lg  space-y-6">
+                <p class="">{{$listing->description}}</p>
+
+                <div class="flex justify-center space-x-3 items-center text-lg font-bold">
 
                 <a
                     href="mailto:{{$listing->email}}"
-                    class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
+                    class="block bg-laravel text-white py-2 px-4  rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-envelope"></i>
                     Contact Employer</a
                 >
@@ -40,10 +42,12 @@
                 <a
                     href="{{$listing->website}}"
                     target="_blank"
-                    class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
+                    class="block bg-black text-white py-2 px-4 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-globe"></i> Visit
                     Website</a
                 >
+            </div>
+
             </div>
         </div>
     </div>
