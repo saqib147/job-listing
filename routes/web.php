@@ -33,6 +33,7 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 // Authenticate user
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
+Route::get('/listings/manage', [ListingController::class, 'manage'])->middleware('auth');
 
 // Get single listing
 Route::get('/listings/{listing}', [ListingController::class, 'show']);

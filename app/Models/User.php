@@ -32,7 +32,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    
+    // Relationship to Listing
+    public function listings()
+    {
+        return $this->hasMany(Listing::class, 'user_id');
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -44,10 +49,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-    // Relationship to Listing
-    public function listings()
-    {
-        return $this->hasMany(Listing::class, 'user_id');
     }
 }

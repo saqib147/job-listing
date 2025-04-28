@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -57,6 +58,10 @@ class ListingController extends Controller
     }
     // update listing
     public function update(Request $request, Listing $listing){
+        
+        if($listing->user_id != Auth::id()){
+            abort(403, 'Unauthorized action');
+        }
         // dd($request->all());
         $formFields = $request->validate([
             'title' => 'required|max:255',
@@ -72,6 +77,8 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+
+
         $listing->update($formFields);
 
         return back()->with('message', 'Listing updated successfully!');
@@ -79,7 +86,23 @@ class ListingController extends Controller
 
     // delete listing
     public function destroy(Listing $listing){
+        if($listing->user_id != Auth::id()){
+            abort(403, 'Unauthorized action');
+        }
         $listing->delete();
         return redirect('/')->with('message', 'Listing deleted successfully!');
     }
+
+// manage listings
+public function manage()
+{
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Please log in to manage your listings.');
+    }
+    $listings = Auth::user()->listings;
+
+    return view('listings.manage', [
+        'listings' => $listings
+    ]);
+}
 }
